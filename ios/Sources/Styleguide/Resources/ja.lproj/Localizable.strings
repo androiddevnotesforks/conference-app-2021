@@ -1,0 +1,37 @@
+// MARK: Home
+"HomeScreen.Title" = "Home";
+"HomeScreen.Questionnaire.Title" = "アンケートにご協力をお願いします";
+"HomeScreen.Questionnaire.Answer" = "回答";
+
+// MARK: Media
+"MediaScreen.Title" = "Media";
+"MediaScreen.SearchBar.Placeholder" = "タイトルを検索";
+"MediaScreen.Section.Blog.Title" = "BLOG";
+"MediaScreen.Section.Video.Title" = "VIDEO";
+"MediaScreen.Section.Podcast.Title" = "PODCAST";
+"MediaScreen.Section.More" = "More";
+"SearchResultScreen.Empty.Title" = "該当するものが見つかりませんでした。";
+
+// MARK: Favorite
+"FavoriteScreen.Title" = "Favorites";
+
+// MARK: About
+"AboutScreen.Title" = "About";
+"AboutScreen.Picker.Staff" = "Staff";
+"AboutScreen.Picker.Contributor" = "Contributor";
+"AboutDroidKaigiScreen.WhatIs" = "What is";
+"AboutDroidKaigiScreen.Description" = "DroidKaigiはエンジニアが主役のAndroid\nカンファレンスです。Android技術情報\nの共有とコミュニケーションを目的\nに、イベントを開催しています。";
+"AboutDroidKaigiScreen.BehaviorCode" = "行動規範";
+"AboutDroidKaigiScreen.OpensourceLincense" = "オープンソースライセンス";
+"AboutDroidKaigiScreen.PrivacyPolicy" = "プライバシーポリシー";
+
+// MARK: Setting
+"SettingScreen.Title" = "Setting";
+"SettingScreen.ListItem.DarkMode" = "ダークモード";
+"SettingScreen.ListItem.Language" = "言語設定";
+
+// MARK: Component
+"Component.Tag.DroidKaigiFm" = "DroidKaigi.fm";
+"Component.Tag.Medium" = "Medium";
+"Component.Tag.Youtube" = "Youtube";
+"Component.Tag.Other" = "Other";

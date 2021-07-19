@@ -26,7 +26,9 @@ Now this app has the Feed feature. We will deliver Feed and events related to Dr
 
 ## Design
 
-https://www.figma.com/file/IFlrbfmBSdYvUz7VmSzfLV/DroidKaigi_2021_official_app
+[Android](https://www.figma.com/file/IFlrbfmBSdYvUz7VmSzfLV/DroidKaigi_2021_official_app)
+
+[iOS](https://www.figma.com/file/D2VLqh0xOXbH0zB6cTz053/DroidKaigi_2021_official_App-(iOS)?node-id=0%3A1)
 
 ## Try it out
 
@@ -44,7 +46,9 @@ For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md)
 
 ## Requirements
 
-Latest Android Studio **Arctic Fox** and higher. You can download it from [this page](https://developer.android.com/studio/preview).  
+Latest Android Studio **BumbleBee** and higher. You can download it from [this page]
+(https://developer
+.android.com/studio/preview).
 Xcode version is 12.4 (If you do iOS development)
 
 # Tech Stacks
@@ -284,7 +288,8 @@ GitHub : [Contributors](https://github.com/DroidKaigi/conference-app-2021/graphs
 
 ## Designer
 
-[nontan](https://github.com/nontan)
+[nontan](https://github.com/nontan)  
+[nobo](https://github.com/nobonobopurin)
 
 # Trouble Shooting
 

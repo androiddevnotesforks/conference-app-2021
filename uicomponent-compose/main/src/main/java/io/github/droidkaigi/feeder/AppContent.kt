@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalDrawer
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -20,14 +21,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.navigate
 import androidx.navigation.navDeepLink
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import io.github.droidkaigi.feeder.core.R as CoreR
 import io.github.droidkaigi.feeder.core.navigation.chromeCustomTabs
 import io.github.droidkaigi.feeder.core.navigation.navigateChromeCustomTabs
 import io.github.droidkaigi.feeder.core.navigation.rememberCustomNavController
 import io.github.droidkaigi.feeder.feed.FeedScreen
 import io.github.droidkaigi.feeder.feed.FeedTab
-import io.github.droidkaigi.feeder.main.R
 import io.github.droidkaigi.feeder.other.OtherScreen
 import io.github.droidkaigi.feeder.other.OtherTab
 import kotlinx.coroutines.launch
@@ -35,12 +36,22 @@ import kotlinx.coroutines.launch
 private const val FEED_PATH = "feed/"
 private const val OTHER_PATH = "other/"
 
+private val drawerOpenedStatusBarColor = Color.Black.copy(alpha = 0.48f)
+
 @Composable
 fun AppContent(
     modifier: Modifier = Modifier,
     firstDrawerValue: DrawerValue = DrawerValue.Closed,
 ) {
+    val systemUiController = rememberSystemUiController()
     val drawerState = rememberDrawerState(firstDrawerValue)
+    LaunchedEffect(drawerState.currentValue) {
+        if (drawerState.currentValue == DrawerValue.Closed) {
+            systemUiController.setStatusBarColor(Color.Transparent)
+        } else {
+            systemUiController.setStatusBarColor(drawerOpenedStatusBarColor)
+        }
+    }
     val drawerContentState = rememberDrawerContentState(DrawerContents.HOME.route)
     val navController = rememberCustomNavController()
     val coroutineScope = rememberCoroutineScope()
@@ -50,8 +61,8 @@ fun AppContent(
         }
     }
     val deepLinkUri =
-        "https://" + LocalContext.current.getString(R.string.deep_link_host) +
-            LocalContext.current.getString(R.string.deep_link_path)
+        "https://" + LocalContext.current.getString(CoreR.string.deep_link_host) +
+            LocalContext.current.getString(CoreR.string.deep_link_path)
     val actions = remember(navController) {
         AppActions(navController)
     }
@@ -151,7 +162,7 @@ private class AppActions(navController: NavHostController) {
             // on the back stack as users select items.
             // And clean up all of the stacks if users select one of feed tabs.
             // Refer to https://developer.android.com/jetpack/compose/navigation#bottom-nav
-            popUpTo(navController.graph.startDestination) {
+            popUpTo(navController.graph.startDestinationId) {
                 inclusive = when (contents) {
                     DrawerContents.HOME,
                     DrawerContents.BLOG,

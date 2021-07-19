@@ -1,8 +1,6 @@
 package io.github.droidkaigi.feeder.data
 
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.auth.auth
-import io.github.droidkaigi.feeder.Logger
+import io.github.droidkaigi.feeder.Authenticator
 import io.ktor.client.HttpClient
 import io.ktor.client.features.ResponseException
 import io.ktor.client.request.header
@@ -16,26 +14,25 @@ import kotlinx.coroutines.flow.first
 class AuthApi(
     private val httpClient: HttpClient,
     private val userDataStore: UserDataStore,
+    private val authenticator: Authenticator
 ) {
     suspend fun authIfNeeded() {
-        val auth = Firebase.auth
-        val currentUser = auth.currentUser
-        val isAuthenticated = userDataStore.isAuthenticated().first()
-        val firebaseIdToken = currentUser?.getIdToken(false).orEmpty()
-        if (isAuthenticated == true && firebaseIdToken.isNotBlank()) {
-            // already authenticated
-            userDataStore.setIdToken(firebaseIdToken)
-            return
+        var idToken = authenticator.currentUser()?.idToken
+
+        if (idToken == null) {
+            // not authenticated
+            idToken = authenticator.signInAnonymously()?.idToken.orEmpty()
         }
-        // not authenticated
-        val result = auth.signInAnonymously()
-        Logger.d("signin:${result.user}")
-        val createdIdToken = result.user?.getIdToken(false).orEmpty()
-        userDataStore.setIdToken(createdIdToken)
-        if (createdIdToken.isNotBlank()) {
-            registerToServer(createdIdToken)
-            userDataStore.setAuthenticated(true)
+        userDataStore.setIdToken(idToken)
+
+        if (userDataStore.isAuthenticated().first() == true) {
+            return // Already registered on server
         }
+        if (idToken.isBlank()) {
+            return // Invalid id token
+        }
+        registerToServer(idToken)
+        userDataStore.setAuthenticated(true)
     }
 
     private suspend fun registerToServer(createdIdToken: String) {
